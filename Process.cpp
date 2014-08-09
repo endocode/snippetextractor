@@ -74,6 +74,51 @@ QString process_snippet(const QString argumentString, const QString& position)
     const QString style = arguments[2].trimmed();
 
     QFile sourceFile(filename);
-
-    return QString();
+    if (!sourceFile.open(QIODevice::ReadOnly)) {
+        throw Exception(u("%1: Error opening file \"%2\" for reading!").arg(position).arg(filename));
+    }
+    QTextStream stream(&sourceFile);
+    int linecounter = 0;
+    bool reading = false;
+    QString result;
+    while (!stream.atEnd()) {
+        ++linecounter;
+        const QString positionInFile = u("%1:%2").arg(filename).arg(linecounter);
+        auto line = stream.readLine();
+        if (reading) {
+            const int index = line.indexOf(u("//@@end("));
+            if (index == -1) {
+                result.append(line);
+            } else {
+                reading = false;
+                break;
+            }
+        } else {
+            const int index = line.indexOf(u("//@@snippet("));
+            if (index != -1) {
+                const int openingBracket = line.indexOf(u("("), index);
+                Q_ASSERT(openingBracket  != 0); // we just searched for it above
+                int position = openingBracket;
+                int brackets = 1;
+                while (brackets != 0) {
+                    position += 1;
+                    if (position == line.count()) {
+                        throw Exception(u("%1: Syntax error, opening and closing brackets do not match!")
+                                        .arg(positionInFile));
+                    }
+                    auto character = line.at(position);
+                    if (character == u("(")) {
+                        brackets += 1;
+                    } else if (character == u(")")) {
+                        brackets -= 1;
+                    }
+                }
+                const QString name = line.mid(openingBracket + 1, position - openingBracket - 1);
+                if (name == snippet) {
+                    reading = true;
+                }
+            }
+        }
+    }
+    return result;
 }
