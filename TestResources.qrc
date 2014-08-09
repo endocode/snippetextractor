@@ -2,5 +2,6 @@
     <qresource prefix="/data">
         <file>testresources/include-sample.md.in</file>
         <file>testresources/sample.cpp</file>
+        <file>testresources/include-sample.md</file>
     </qresource>
 </RCC>

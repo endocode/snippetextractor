@@ -56,7 +56,7 @@ QString process(const QString inputfilename)
                 throw Exception(u("%1: Unknown parser instruction \"%1\" at line %2!").arg(positionInFile).arg(command));
             }
         } else {
-            result.append(line);
+            result.append(line + u("\n"));
         }
     }
 
@@ -88,7 +88,7 @@ QString process_snippet(const QString argumentString, const QString& position)
         if (reading) {
             const int index = line.indexOf(u("//@@end("));
             if (index == -1) {
-                result.append(line);
+                result.append(line + u("\n"));
             } else {
                 reading = false;
                 break;

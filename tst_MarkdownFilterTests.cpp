@@ -1,4 +1,6 @@
 #include <QString>
+#include <QByteArray>
+
 #include <QtTest>
 
 #include "Helpers.h"
@@ -10,6 +12,8 @@ class MarkdownFilterTests : public QObject
 
 public:
     MarkdownFilterTests();
+private:
+    QByteArray loadResource(const QString& path);
 
 private Q_SLOTS:
     void testIncludeSample();
@@ -19,11 +23,20 @@ MarkdownFilterTests::MarkdownFilterTests()
 {
 }
 
+QByteArray MarkdownFilterTests::loadResource(const QString &path)
+{
+    QFile input(path);
+    if (!input.open(QIODevice::ReadOnly)) {
+        Q_ASSERT_X(false, Q_FUNC_INFO, "resource cannot be opened");
+    }
+    return input.readAll();
+}
+
 void MarkdownFilterTests::testIncludeSample()
 {
     const QString result = process(":/data/testresources/include-sample.md.in");
-    QVERIFY(!result.isEmpty());
-    QCOMPARE(result.trimmed(), u("//test"));
+    const QString expected = loadResource(":/data/testresources/include-sample.md");
+    QCOMPARE(result, expected);
 }
 
 QTEST_APPLESS_MAIN(MarkdownFilterTests)
