@@ -3,6 +3,6 @@
 
 class QString;
 
-void process( const QString inputfile, const QString outputfile);
+void process(const QString inputfilename, const QString outputfilename);
 
 #endif // PROCESS_H
