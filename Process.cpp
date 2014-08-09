@@ -91,6 +91,7 @@ QString process_snippet(const QString argumentString, const QString& position)
                 result.append(line + u("\n"));
             } else {
                 reading = false;
+                result += u("~~~\n");
                 break;
             }
         } else {
@@ -117,6 +118,8 @@ QString process_snippet(const QString argumentString, const QString& position)
                 if (name == snippet) {
                     reading = true;
                 }
+                const QString opener = u("~~~ {#%1 .numberLines startFrom=\"%2\"}\n").arg(snippet).arg(linecounter);
+                result += opener;
             }
         }
     }
