@@ -10,11 +10,7 @@
 
 #include "Exception.h"
 #include "Helpers.h"
-
-//temp:
-void process( const QString inputfile, const QString outputfile) {
-    throw Exception(u("%1: Not implemented").arg(Q_FUNC_INFO));
-}
+#include "Process.h"
 
 int main(int argc, char *argv[])
 {

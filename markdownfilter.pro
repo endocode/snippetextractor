@@ -17,8 +17,10 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     Exception.cpp \
-    Helpers.cpp
+    Helpers.cpp \
+    Process.cpp
 
 HEADERS += \
     Exception.h \
-    Helpers.h
+    Helpers.h \
+    Process.h
