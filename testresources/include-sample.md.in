@@ -1,4 +1,4 @@
 This is some arbitrary text that should not be clobbered.
 
-@@snippet(:/data/testresources/sample.cpp, sample, c++)
+@@snippet(:/data/testresources/sample.cpp, sample, cpp)
 Neither should this.

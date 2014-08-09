@@ -1,6 +1,6 @@
 This is some arbitrary text that should not be clobbered.
 
-~~~ {#sample .numberLines startFrom="1"}
+~~~ {#sample .cpp .numberLines startFrom="2"}
 //test
 ~~~
 Neither should this.
