@@ -1,12 +1,8 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2014-08-09T10:28:12
-#
-#-------------------------------------------------
-
 QT       += core
 
 QT       -= gui
+
+QMAKE_CXXFLAGS += -std=c++11
 
 TARGET = markdownfilter
 CONFIG   += console
