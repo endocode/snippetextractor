@@ -3,6 +3,7 @@
 
 #include <QtTest>
 
+#include "Exception.h"
 #include "Helpers.h"
 #include "Process.h"
 
@@ -17,6 +18,7 @@ private:
 
 private Q_SLOTS:
     void testIncludeSample();
+    void testErrorOnMissingSnippet();
 };
 
 MarkdownFilterTests::MarkdownFilterTests()
@@ -37,6 +39,16 @@ void MarkdownFilterTests::testIncludeSample()
     const QString result = process(":/data/testresources/include-sample.md.in");
     const QString expected = loadResource(":/data/testresources/include-sample.md");
     QCOMPARE(result, expected);
+}
+
+void MarkdownFilterTests::testErrorOnMissingSnippet()
+{
+    try {
+        const QString result = process(":/data/testresources/missing-sample.md.in");
+        QFAIL("Missing samples should result in errors!");
+    } catch (const Exception&) {
+        //all good
+    }
 }
 
 QTEST_APPLESS_MAIN(MarkdownFilterTests)

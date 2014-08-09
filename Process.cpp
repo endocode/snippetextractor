@@ -80,6 +80,7 @@ QString process_snippet(const QString argumentString, const QString& position)
     }
     QTextStream stream(&sourceFile);
     int linecounter = 0;
+    bool found = false;
     bool reading = false;
     QString result;
     while (!stream.atEnd()) {
@@ -118,14 +119,18 @@ QString process_snippet(const QString argumentString, const QString& position)
                 const QString name = line.mid(openingBracket + 1, position - openingBracket - 1);
                 if (name == snippet) {
                     reading = true;
+                    found = true;
+                    const QString opener = u("~~~ {#%1 .%2 .numberLines startFrom=\"%3\"}\n")
+                            .arg(snippet)
+                            .arg(style)
+                            .arg(linecounter + 1);
+                    result += opener;
                 }
-                const QString opener = u("~~~ {#%1 .%2 .numberLines startFrom=\"%3\"}\n")
-                        .arg(snippet)
-                        .arg(style)
-                        .arg(linecounter + 1);
-                result += opener;
             }
         }
+    }
+    if (!found) {
+        throw Exception(u("%1: Snippet \"%2\" not found!").arg(filename).arg(snippet));
     }
     return result;
 }

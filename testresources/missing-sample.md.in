@@ -1,0 +1,3 @@
+The snippet referenced here does not exist. The program should notice that and abort with an error.
+
+@@snippet(:/data/testresources/sample.cpp, nonexistant-sample, cpp)
