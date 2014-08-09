@@ -12,3 +12,6 @@ include(sources.pri)
 
 SOURCES += tst_MarkdownFilterTests.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
+
+RESOURCES += \
+    TestResources.qrc
