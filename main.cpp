@@ -32,5 +32,6 @@ int main(int argc, char *argv[])
         process(inputfile, outputfile);
     } catch(const Exception& ex) {
         wcout << ex.message().toStdWString() <<endl;
+        return 1;
     }
 }
