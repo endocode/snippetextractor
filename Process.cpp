@@ -12,7 +12,8 @@ void process( const QString inputfilename, const QString outputfilename) {
     if (!outputfile.open(QIODevice::WriteOnly)) {
         throw Exception(u("Unable to open output file \"%1\" for writing!").arg(outputfilename));
     }
-
+    QTextStream stream(&outputfile);
+    stream << result;
 }
 
 QString process(const QString inputfilename)
@@ -118,7 +119,7 @@ QString process_snippet(const QString argumentString, const QString& position)
                 if (name == snippet) {
                     reading = true;
                 }
-                const QString opener = u("~~~ {#%1 .numberLines startFrom=\"%2\"}\n").arg(snippet).arg(linecounter);
+                const QString opener = u("~~~ {#%1 .numberLines startFrom=\"%2\"}\n").arg(snippet).arg(linecounter + 1);
                 result += opener;
             }
         }
