@@ -1,5 +1,5 @@
 TEMPLATE = subdirs
-SUBDIRS = filter.pro tests.pro
+SUBDIRS = extractor.pro tests.pro
 CONFIG += ordered
 
 OTHER_FILES += \

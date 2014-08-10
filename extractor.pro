@@ -2,7 +2,7 @@ QT       += core
 QT       -= gui
 QMAKE_CXXFLAGS += -std=c++11
 
-TARGET = markdownfilter
+TARGET = snippetextractor
 CONFIG   += console
 CONFIG   -= app_bundle
 

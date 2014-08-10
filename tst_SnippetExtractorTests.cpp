@@ -7,12 +7,12 @@
 #include "Helpers.h"
 #include "Process.h"
 
-class MarkdownFilterTests : public QObject
+class SnippetExtractorTests : public QObject
 {
     Q_OBJECT
 
 public:
-    MarkdownFilterTests();
+    SnippetExtractorTests();
 private:
     QByteArray loadResource(const QString& path);
 
@@ -21,11 +21,11 @@ private Q_SLOTS:
     void testErrorOnMissingSnippet();
 };
 
-MarkdownFilterTests::MarkdownFilterTests()
+SnippetExtractorTests::SnippetExtractorTests()
 {
 }
 
-QByteArray MarkdownFilterTests::loadResource(const QString &path)
+QByteArray SnippetExtractorTests::loadResource(const QString &path)
 {
     QFile input(path);
     if (!input.open(QIODevice::ReadOnly)) {
@@ -34,14 +34,14 @@ QByteArray MarkdownFilterTests::loadResource(const QString &path)
     return input.readAll();
 }
 
-void MarkdownFilterTests::testIncludeSample()
+void SnippetExtractorTests::testIncludeSample()
 {
     const QString result = process(":/data/testresources/include-sample.md.in");
     const QString expected = loadResource(":/data/testresources/include-sample.md");
     QCOMPARE(result, expected);
 }
 
-void MarkdownFilterTests::testErrorOnMissingSnippet()
+void SnippetExtractorTests::testErrorOnMissingSnippet()
 {
     try {
         const QString result = process(":/data/testresources/missing-sample.md.in");
@@ -51,6 +51,6 @@ void MarkdownFilterTests::testErrorOnMissingSnippet()
     }
 }
 
-QTEST_APPLESS_MAIN(MarkdownFilterTests)
+QTEST_APPLESS_MAIN(SnippetExtractorTests)
 
-#include "tst_MarkdownFilterTests.moc"
+#include "tst_SnippetExtractorTests.moc"

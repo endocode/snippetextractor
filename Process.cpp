@@ -42,10 +42,10 @@ QString process(const QString inputfilename)
                     throw Exception(u("%1: Syntax error, opening and closing brackets do not match!")
                                     .arg(positionInFile));
                 }
-                auto character = line.at(position);
-                if (character == u("(")) {
+                auto const character = line.at(position);
+                if (character == QChar::fromLatin1('(')) {
                     brackets += 1;
-                } else if (character == u(")")) {
+                } else if (character == QChar::fromLatin1(')')) {
                     brackets -= 1;
                 }
             }
