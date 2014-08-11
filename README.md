@@ -21,10 +21,10 @@ Code samples are inserted into a document by a combination of an include instruc
 The first parameter specifies the file that contains the code snippet. The second parameter contains the name of the snippet as it is marked in the source file. Multiple snippets may be defined in a single source file, however each needs to have a unique name. The third parameter chooses a language for the generated Markdown code, the value has to be a name of a language supported by Pandoc (or whatever processes the Markdown file later). The snippet instructions have to be written in one separate line. This line will be replaced with the content of the snippet. Snippet instructions cannot be nested. The matching magic comments in the source file are written in the following format: 
 
 ~~~
-//@@snippet(helloworld)
+//@@snippet_begin(helloworld)
 using namespace std; 
 cout << "Hello World!" << endl;
-//@@end(helloworld)
+//@@snippet_end
 ~~~
 
 The tool will look up the file, extract the snippet from it, and generate markdown output to render the code sample in the article. The code sample will include the lines between the delimiters, but not the delimiters themselves. It will also add the correct line numbers to the listing. 

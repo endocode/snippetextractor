@@ -88,7 +88,7 @@ QString process_snippet(const QString argumentString, const QString& position)
         const QString positionInFile = u("%1:%2").arg(filename).arg(linecounter);
         auto line = stream.readLine();
         if (reading) {
-            const int index = line.indexOf(u("//@@end("));
+            const int index = line.indexOf(u("//@@snippet_end"));
             if (index == -1) {
                 result.append(line + u("\n"));
             } else {
@@ -97,7 +97,7 @@ QString process_snippet(const QString argumentString, const QString& position)
                 break;
             }
         } else {
-            const int index = line.indexOf(u("//@@snippet("));
+            const int index = line.indexOf(u("//@@snippet_begin("));
             if (index != -1) {
                 const int openingBracket = line.indexOf(u("("), index);
                 Q_ASSERT(openingBracket  != 0); // we just searched for it above
