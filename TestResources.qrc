@@ -4,5 +4,8 @@
         <file>testresources/sample.cpp</file>
         <file>testresources/include-sample.md</file>
         <file>testresources/missing-sample.md.in</file>
+        <file>testresources/include-sample-cmake.md</file>
+        <file>testresources/sample-cmake-format.txt</file>
+        <file>testresources/include-sample-cmake.md.in</file>
     </qresource>
 </RCC>

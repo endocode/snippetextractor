@@ -1,4 +1,5 @@
 #include <QString>
+#include <QRegularExpression>
 #include <QFile>
 #include <QTextStream>
 
@@ -82,22 +83,26 @@ QString process_snippet(const QString argumentString, const QString& position)
     int linecounter = 0;
     bool found = false;
     bool reading = false;
+    bool complete = false;
     QString result;
     while (!stream.atEnd()) {
         ++linecounter;
         const QString positionInFile = u("%1:%2").arg(filename).arg(linecounter);
         auto line = stream.readLine();
         if (reading) {
-            const int index = line.indexOf(u("//@@snippet_end"));
+            const QRegularExpression snipped_end(u("(\\/\\/|\\#\\#)\\@\\@snippet_end"));
+            const int index = line.indexOf(snipped_end);
             if (index == -1) {
                 result.append(line + u("\n"));
             } else {
                 reading = false;
                 result += u("~~~\n");
+                complete = true;
                 break;
             }
         } else {
-            const int index = line.indexOf(u("//@@snippet_begin("));
+            const QRegularExpression snippet_begin(u("(\\/\\/|\\#\\#)\\@\\@snippet_begin\\("));
+            const int index = line.indexOf(snippet_begin);
             if (index != -1) {
                 const int openingBracket = line.indexOf(u("("), index);
                 Q_ASSERT(openingBracket  != 0); // we just searched for it above
@@ -131,6 +136,9 @@ QString process_snippet(const QString argumentString, const QString& position)
     }
     if (!found) {
         throw Exception(u("%1: Snippet \"%2\" not found!").arg(filename).arg(snippet));
+    }
+    if (!complete) {
+        throw Exception(u("%1: End tag not found for snippet \"%2\"!").arg(filename).arg(snippet));
     }
     return result;
 }

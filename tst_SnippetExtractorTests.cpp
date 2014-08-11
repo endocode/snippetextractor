@@ -18,6 +18,7 @@ private:
 
 private Q_SLOTS:
     void testIncludeSample();
+    void testCMakeFormatIncludeSample();
     void testErrorOnMissingSnippet();
 };
 
@@ -36,9 +37,24 @@ QByteArray SnippetExtractorTests::loadResource(const QString &path)
 
 void SnippetExtractorTests::testIncludeSample()
 {
-    const QString result = process(":/data/testresources/include-sample.md.in");
-    const QString expected = loadResource(":/data/testresources/include-sample.md");
-    QCOMPARE(result, expected);
+    try {
+        const QString result = process(":/data/testresources/include-sample.md.in");
+        const QString expected = loadResource(":/data/testresources/include-sample.md");
+        QCOMPARE(result, expected);
+    } catch (const Exception& ex) {
+        QFAIL(ex.message().toLocal8Bit());
+    }
+}
+
+void SnippetExtractorTests::testCMakeFormatIncludeSample()
+{
+    try {
+        const QString result = process(":/data/testresources/include-sample-cmake.md.in");
+        const QString expected = loadResource(":/data/testresources/include-sample-cmake.md");
+        QCOMPARE(result, expected);
+    } catch (const Exception& ex) {
+        QFAIL(ex.message().toLocal8Bit());
+    }
 }
 
 void SnippetExtractorTests::testErrorOnMissingSnippet()
