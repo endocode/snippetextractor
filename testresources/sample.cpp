@@ -1,3 +1,3 @@
-//@@snippet(sample)
+//@@snippet_begin(sample)
 //test
-//@@end(sample)
+//@@snippet_end
