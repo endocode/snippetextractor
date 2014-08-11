@@ -3,9 +3,9 @@ QT       -= gui
 QMAKE_CXXFLAGS += -std=c++11
 
 TARGET = tst_SnippetExtractorTests
-CONFIG   += console
-CONFIG   -= app_bundle
-
+CONFIG += console
+CONFIG -= app_bundle
+CONFIG += testcase
 TEMPLATE = app
 
 include(sources.pri)
